@@ -10,7 +10,10 @@ public class MainComponent {
 	private boolean isRunning;
 	private Game game;
 	
-	public MainComponent(){
+	public MainComponent()
+	{
+		System.out.println(RenderUtil.getOpenGLVersion());
+		RenderUtil.initGraphics();
 		isRunning = false;
 		game = new Game();
 	}
@@ -60,7 +63,7 @@ public class MainComponent {
 					stop();
 				
 				Time.setDelta(frameTime);
-				Input.update();
+				Input.Update();
 				
 				game.input();
 				game.update();
@@ -90,6 +93,8 @@ public class MainComponent {
 	}
 	
 	private void render(){
+		RenderUtil.clearScreen();
+		game.render();
 		Window.render();
 	}
 	
