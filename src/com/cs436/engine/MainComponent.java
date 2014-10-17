@@ -2,7 +2,7 @@ package com.cs436.engine;
 
 public class MainComponent {
 	
-	public static final int WIDTH = 800;
+	public static final int WIDTH = 600;
 	public static final int HEIGHT = 600;
 	public static final String TITLE = "453 Engine";
 	public static final double FRAME_CAP = 5000.0; // How many updates per second
@@ -105,8 +105,8 @@ public class MainComponent {
 	public static void main(String[] args) {
 		Window.createWindow(WIDTH, HEIGHT, TITLE);
 		
-		MainComponent game = new MainComponent();
-		game.start();
+		MainComponent mainComponent = new MainComponent();
+		mainComponent.start();
 	}
 
 }

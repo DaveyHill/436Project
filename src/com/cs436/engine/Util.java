@@ -1,6 +1,8 @@
 package com.cs436.engine;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 
@@ -9,6 +11,11 @@ public class Util
 	public static FloatBuffer createFloatBuffer(int size)
 	{
 		return BufferUtils.createFloatBuffer(size);
+	}
+	
+	public static IntBuffer createIntBuffer(int size)
+	{
+		return BufferUtils.createIntBuffer(size);
 	}
 	
 	public static FloatBuffer createFlippedBuffer(Vertex[] vertices)
@@ -38,5 +45,44 @@ public class Util
 		buffer.flip();
 		
 		return buffer;
+	}
+
+	public static IntBuffer createFlippedBuffer(int... values) 
+	{
+		IntBuffer buffer = createIntBuffer(values.length);
+		
+		buffer.put(values);
+		buffer.flip();
+		
+		return buffer;
+	}
+
+	public static String[] removeEmptyStrings(String[] tokens) 
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		
+		for(int i = 0; i < tokens.length ; i++ )
+		{
+			if(!tokens[i].equals(""))
+			{
+				result.add(tokens[i]);
+			}
+		}
+		String[] res = new String[result.size()];
+		
+		result.toArray(res);
+		
+		return res;
+	}
+
+	public static int[] toIntArray(ArrayList<Integer> indices) 
+	{
+		int[] result = new int[indices.size()];
+		for(int i = 0; i < indices.size() ; i++ )
+		{
+			result[i] = indices.get(i).intValue();
+		}
+		
+		return result;
 	}
 }

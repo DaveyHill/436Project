@@ -7,23 +7,33 @@ public class Game
 	private Mesh mesh;
 	private Shader shader;
 	private Transform transform;
+	private Camera camera;
 	
 	public Game()
 	{
-		mesh = new Mesh();
+		mesh = ResourceLoader.loadMesh("untitled.obj"); //new Mesh();
 		shader = new Shader();
+		camera = new Camera();
+		
 		transform = new Transform();
+		transform.setCamera(camera);
+		transform.setProjection(70f, Window.getWidth(), Window.getHeight(), 0.1f, 1000f );
 		
 		
-		Vertex[] data = new Vertex[] { new Vertex(new Vector3f(-1,-1,0)),
-										new Vertex(new Vector3f(0,1,0)),
-										new Vertex(new Vector3f(1,-1,0))
-										};
+//		Vertex[] vertices = new Vertex[] { new Vertex(new Vector3f(-1,-1,0)),
+//										new Vertex(new Vector3f(0,1,0)),
+//										new Vertex(new Vector3f(1,-1,0)),
+//										new Vertex(new Vector3f(0,-1,1))};
+//		
+//		int[] indices = new int[] 	{0,1,3,
+//									 3,1,2,
+//									 2,1,0,
+//									 0,2,3};
 		
-		mesh.addVertices(data);
+//		mesh.addVertices(vertices, indices);
 		
-		shader.addVertexShader(ResourceLoader.loadShader("/basicVertex.vs"));
-		shader.addFragmentShader(ResourceLoader.loadShader("/basicFragment.fs"));
+		shader.addVertexShader(ResourceLoader.loadShader("basicVertex.vs"));
+		shader.addFragmentShader(ResourceLoader.loadShader("basicFragment.fs"));
 		shader.compileShader();
 		
 		shader.addUniform("transform");
@@ -31,17 +41,19 @@ public class Game
 	
 	public void input()
 	{
-		//Test up key
-		if(Input.GetKeyDown(Keyboard.KEY_UP))
-			System.out.println("Pressed up.");
-		if(Input.GetKeyUp(Keyboard.KEY_UP))
-			System.out.println("Released up");
+		camera.input();
 		
-		//Test right mouse button
-		if(Input.GetMouseDown(1))
-			System.out.println("Pressed right click at " + Input.GetMousePosition().toString());
-		if(Input.GetMouseUp(1))
-			System.out.println("Released right click");
+//		//Test up key
+//		if(Input.GetKeyDown(Keyboard.KEY_UP))
+//			System.out.println("Pressed up.");
+//		if(Input.GetKeyUp(Keyboard.KEY_UP))
+//			System.out.println("Released up");
+//		
+//		//Test right mouse button
+//		if(Input.GetMouseDown(1))
+//			System.out.println("Pressed right click at " + Input.GetMousePosition().toString());
+//		if(Input.GetMouseUp(1))
+//			System.out.println("Released right click");
 	}
 	
 	float temp = 0.0f;
@@ -53,17 +65,17 @@ public class Game
 		
 		tempAmount = (float)Math.sin(temp);
 		
-		transform.setScale(tempAmount, tempAmount, tempAmount);
+		//transform.setScale(0.7f * tempAmount, 0.7f * tempAmount, 0.7f * tempAmount);
 		
-		transform.setTranslation((float)Math.sin(temp),(float)Math.cos(temp), 0);
+		//transform.setTranslation((float)Math.sin(temp),(float)Math.cos(temp), 5);
 		
-		transform.setRotation(0,0,(float)Math.sin(temp) * 180);
+		transform.setRotation((float)Math.abs(tempAmount) * 180,0,0);
 	}
 	
 	public void render()
 	{
 		shader.bind();
-		shader.setUniform("transform", transform.getTransformation());
+		shader.setUniform("transform", transform.getProjectedTransformation());
 		mesh.draw();
 	}
 }
