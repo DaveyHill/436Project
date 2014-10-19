@@ -40,7 +40,8 @@ public class Transform
 		return projectionMatrix.mul(cameraRotation.mul(cameraTranslation.mul(transformationMatrix)));
 	}
 
-	public Vector3f getTranslation() {
+	public Vector3f getTranslation() 
+	{
 		return translation;
 	}
 

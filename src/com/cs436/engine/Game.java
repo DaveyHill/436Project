@@ -11,7 +11,7 @@ public class Game
 	
 	public Game()
 	{
-		mesh = ResourceLoader.loadMesh("untitled.obj"); //new Mesh();
+		mesh = ResourceLoader.loadMesh("box.obj"); //new Mesh();
 		shader = new Shader();
 		camera = new Camera();
 		
@@ -57,19 +57,19 @@ public class Game
 	}
 	
 	float temp = 0.0f;
-	float tempAmount = 0.0f;
+	
 	
 	public void update()
 	{
 		temp += Time.getDelta();
 		
-		tempAmount = (float)Math.sin(temp);
+		float sinTemp  = (float)Math.sin(temp);
 		
-		//transform.setScale(0.7f * tempAmount, 0.7f * tempAmount, 0.7f * tempAmount);
+		transform.setTranslation(sinTemp, 0, 0);
 		
-		//transform.setTranslation((float)Math.sin(temp),(float)Math.cos(temp), 5);
+		transform.setRotation(0, sinTemp *180, 0);
 		
-		transform.setRotation((float)Math.abs(tempAmount) * 180,0,0);
+		transform.setScale(0.7f * sinTemp, 0.7f * sinTemp, 0.7f * sinTemp);
 	}
 	
 	public void render()
