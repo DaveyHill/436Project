@@ -23,28 +23,61 @@ public class Camera
 		forward.normalize();
 	}
 	
+	boolean mouseLocked = false;
+	Vector2f centerPosition = new Vector2f(Window.getWidth()/2, Window.getHeight()/2);
+	
 	public void input()
 	{
+		float sensitivity = 0.5f;
 		float movAmt = (float)(10 * Time.getDelta());
-		float rotAmt = (float)(100 * Time.getDelta());
+		//float rotAmt = (float)(100 * Time.getDelta());
 		
-		if(Input.GetKey(Input.KEY_W))
+		if(Input.getKey(Input.KEY_ESCAPE))
+		{
+			Input.SetCursor(true);
+			mouseLocked = false;
+		}
+		
+		if(Input.getMouseDown(0))
+		{
+			Input.SetMousePosition(centerPosition);
+			Input.SetCursor(false);
+			mouseLocked = true;
+		}
+		
+		if(Input.getKey(Input.KEY_W))
 			move(getForward(), movAmt);
-		if(Input.GetKey(Input.KEY_S))
+		if(Input.getKey(Input.KEY_S))
 			move(getForward(), -movAmt);
-		if(Input.GetKey(Input.KEY_A))
+		if(Input.getKey(Input.KEY_A))
 			move(getLeft(), movAmt);
-		if(Input.GetKey(Input.KEY_D))
+		if(Input.getKey(Input.KEY_D))
 			move(getRight(), movAmt);
 		
-		if(Input.GetKey(Input.KEY_UP))
-			rotateX(-rotAmt);
-		if(Input.GetKey(Input.KEY_DOWN))
-			rotateX(rotAmt);
-		if(Input.GetKey(Input.KEY_LEFT))
-			rotateX(-rotAmt);
-		if(Input.GetKey(Input.KEY_RIGHT))
-			rotateX(rotAmt);
+//		if(Input.GetKey(Input.KEY_UP))
+//			rotateX(-rotAmt);
+//		if(Input.GetKey(Input.KEY_DOWN))
+//			rotateX(rotAmt);
+//		if(Input.GetKey(Input.KEY_LEFT))
+//			rotateX(-rotAmt);
+//		if(Input.GetKey(Input.KEY_RIGHT))
+//			rotateX(rotAmt);
+		
+		if(mouseLocked)
+		{
+			Vector2f deltaPos = Input.getMousePosition().sub(centerPosition);
+			
+			boolean rotY = deltaPos.getX() != 0;
+			boolean rotX = deltaPos.getY() != 0;
+			
+			if(rotY)
+				rotateY(deltaPos.getX() * sensitivity);
+			if(rotX)
+				rotateX(deltaPos.getY() * sensitivity);
+			
+			if(rotY || rotX)
+				Input.SetMousePosition(new Vector2f(Window.getWidth()/2, Window.getHeight()/2));
+		}
 	}
 	
 	public void move(Vector3f dir, float amt)

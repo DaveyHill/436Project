@@ -22,10 +22,7 @@ public class Vector2f {
 	public Vector2f normalize(){
 		float length = length();
 		
-		x /= length;
-		y /= length;
-		
-		return this;
+		return new Vector2f( x/length, y/length);
 	}
 	
 	public Vector2f rotate( float angle ){
@@ -69,6 +66,11 @@ public class Vector2f {
 	
 	public String toString(){
 		return "(" + x + " " + y + ")";
+	}
+	
+	public Vector2f abs()
+	{
+		return new Vector2f(Math.abs(x), Math.abs(y));
 	}
 
 	public float getX() {

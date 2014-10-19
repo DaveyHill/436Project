@@ -11,6 +11,11 @@ public class RenderUtil
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	}
 	
+	public static void setClearColor(Vector3f color)
+	{
+		glClearColor(color.getX(), color.getY(), color.getZ(), 1.0f);
+	}
+	
 	public static void setTextures(boolean enabled)
 	{
 		if(enabled)

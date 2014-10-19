@@ -63,7 +63,7 @@ public class MainComponent {
 					stop();
 				
 				Time.setDelta(frameTime);
-				Input.Update();
+				Input.update();
 				
 				game.input();
 				game.update();

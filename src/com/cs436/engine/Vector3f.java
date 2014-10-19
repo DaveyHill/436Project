@@ -17,11 +17,7 @@ public class Vector3f {
 	public Vector3f normalize(){
 		float length = length();
 		
-		x /= length;
-		y /= length;
-		z /= length;
-		
-		return this;
+		return new Vector3f( x/length, y/length, z/length);
 	}
 	
 	public Vector3f rotate(float angle, Vector3f axis)
@@ -96,6 +92,11 @@ public class Vector3f {
 		float z_ =  x * r.getY() - y * r.getX();
 		
 		return new Vector3f(x_, y_, z_);
+	}
+	
+	public Vector3f abs()
+	{
+		return new Vector3f(Math.abs(x), Math.abs(y), Math.abs(z));
 	}
 
 	public float getY() {
