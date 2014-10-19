@@ -6,8 +6,31 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import org.newdawn.slick.opengl.TextureLoader;
+
 public class ResourceLoader 
 {
+	public static Texture loadTexture(String filename)
+	{
+		String[] splitArray = filename.split("\\.");
+		String ext = splitArray[splitArray.length - 1];
+		
+		try
+		{
+			int id = TextureLoader.getTexture(ext, new FileInputStream(new File("./res/textures/" + filename))).getTextureID();
+			
+			return new Texture(id);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		
+		return null;
+	}
 	
 	public static String loadShader(String filename)
 	{
