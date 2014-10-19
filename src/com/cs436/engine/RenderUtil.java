@@ -40,4 +40,9 @@ public class RenderUtil
 	public static String getOpenGLVersion(){
 		return glGetString(GL_VERSION);
 	}
+
+	public static void unbindTextures() 
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }

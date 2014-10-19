@@ -8,8 +8,18 @@ public class Matrix4f {
 		setM(new float[4][4]);
 	}
 
-	public float[][] getM() {
-		return m;
+	public float[][] getM() 
+	{
+		float[][] res = new float[4][4];
+		
+		for(int j = 0; j < 4; j++)
+		{
+			for(int k = 0; k < 4; k++)
+			{
+				res[j][k] = m[j][k];
+			}
+		}
+		return res;
 	}
 
 	public void setM(float[][] m) {

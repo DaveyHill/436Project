@@ -27,11 +27,16 @@ public class Shader
 		glUseProgram(program);
 	}
 	
+	public void updateUniforms(Matrix4f worldMatrix, Matrix4f projectedMatrix, Material material)
+	{
+		
+	}
+	
 	public void addUniform(String uniform)
 	{
 		int uniformLocation = glGetUniformLocation(program, uniform);  // Returns pointer value for uniform's location in memory
 		
-		if( uniformLocation == 1 )
+		if( uniformLocation == 0xFFFFFFFF )
 		{
 			System.err.println("Error: could not find uniform: " + uniform );
 			new Exception().printStackTrace();
