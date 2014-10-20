@@ -9,7 +9,8 @@ public class PhongShader extends Shader
 		return instance;
 	}
 	
-	private static Vector3f ambientLight;
+	private static Vector3f ambientLight = new Vector3f(0.3f, 0.3f, 0.3f);
+	private static DLight dLight = new DLight(new BaseLight(new Vector3f(1,1,1), 0), new Vector3f(0,0,0));
 	
 	public PhongShader()
 	{
@@ -20,8 +21,13 @@ public class PhongShader extends Shader
 		compileShader();
 		
 		addUniform("transform");
+		addUniform("transformProjected");
 		addUniform("baseColor");
 		addUniform("ambientLight");
+		
+		addUniform("dLight.base.color");
+		addUniform("dLight.base.intensity");
+		addUniform("dLight.direction");
 	}
 	
 	public void updateUniforms(Matrix4f worldMatrix, Matrix4f projectedMatrix, Material material)
@@ -31,9 +37,12 @@ public class PhongShader extends Shader
 		else
 			RenderUtil.unbindTextures();
 		
-		setUniform("transform", projectedMatrix);
+		setUniform("transform", worldMatrix);
+		setUniform("transformProjected", projectedMatrix);
 		setUniform("baseColor", material.getColor());
 		setUniform("ambientLight", ambientLight);
+		setUniform("dLight", dLight);
+		
 	}
 
 	public static Vector3f getAmbientLight() {
@@ -42,5 +51,25 @@ public class PhongShader extends Shader
 
 	public static void setAmbientLight(Vector3f ambientLight) {
 		PhongShader.ambientLight = ambientLight;
+	}
+	
+	public void setUniform(String uniformName, BaseLight base)
+	{
+		setUniform(uniformName + ".color", base.getColor());
+		setUniformf(uniformName + ".intensity", base.getIntensity());
+	}
+	
+	public void setUniform(String uniformName, DLight dLight)
+	{
+		setUniform(uniformName + ".base", dLight.getBase());
+		setUniform(uniformName + ".direction", dLight.getDirection());
+	}
+
+	public static DLight getdLight() {
+		return dLight;
+	}
+
+	public static void setdLight(DLight dLight) {
+		PhongShader.dLight = dLight;
 	}
 }
