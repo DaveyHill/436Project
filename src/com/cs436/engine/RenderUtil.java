@@ -1,7 +1,8 @@
 package com.cs436.engine;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL32.GL_DEPTH_CLAMP;
+
 
 public class RenderUtil 
 {
@@ -33,8 +34,10 @@ public class RenderUtil
 		glEnable(GL_CULL_FACE);		// Hide faces of objects that aren't seen by the "camera"
 		glEnable(GL_DEPTH_TEST);    //Important for drawing more than one thing (tells order which order things should be drawn in
 		
+		glEnable(GL_DEPTH_CLAMP);
+		
 		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_FRAMEBUFFER_SRGB); //Free exponential correction (used in texturing)
+		//glEnable(GL_FRAMEBUFFER_SRGB); //Free exponential correction (used in texturing)
 	}
 	
 	public static String getOpenGLVersion(){

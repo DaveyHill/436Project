@@ -69,6 +69,7 @@ public class Shader
 		if(glGetProgram(program, GL_LINK_STATUS) == 0 )
 		{
 			System.err.println(glGetProgramInfoLog(program, 1024));
+			new Exception().printStackTrace();
 			System.exit(1);
 		}
 		

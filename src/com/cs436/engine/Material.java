@@ -14,7 +14,7 @@ public class Material {
 	
 	public Material(Texture texture, Vector3f color)
 	{
-		this(texture, color, 2, 32);
+		this(texture, color, 1, 8);
 	}
 	
 	public Material(Texture texture, Vector3f color, float specularIntensity, float specularExponent)
