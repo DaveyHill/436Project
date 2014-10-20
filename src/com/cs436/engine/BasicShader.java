@@ -2,6 +2,13 @@ package com.cs436.engine;
 
 public class BasicShader extends Shader
 {
+	public static final BasicShader instance = new BasicShader();
+	
+	public static BasicShader getInstance()
+	{
+		return instance;
+	}
+	
 	public BasicShader()
 	{
 		super();

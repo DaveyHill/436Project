@@ -38,7 +38,7 @@ public class Shader
 		
 		if( uniformLocation == 0xFFFFFFFF )
 		{
-			System.err.println("Error: could not find uniform: " + uniform );
+			System.err.println("Error: could not find uniform: " + uniform + " at location: " + uniformLocation);
 			new Exception().printStackTrace();
 			System.exit(1);
 		}
