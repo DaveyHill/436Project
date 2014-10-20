@@ -28,6 +28,10 @@ public class PhongShader extends Shader
 		addUniform("dLight.base.color");
 		addUniform("dLight.base.intensity");
 		addUniform("dLight.direction");
+		
+		addUniform("specularIntensity");
+		addUniform("specularExponent");
+		addUniform("eyePos");
 	}
 	
 	public void updateUniforms(Matrix4f worldMatrix, Matrix4f projectedMatrix, Material material)
@@ -42,6 +46,10 @@ public class PhongShader extends Shader
 		setUniform("baseColor", material.getColor());
 		setUniform("ambientLight", ambientLight);
 		setUniform("dLight", dLight);
+		
+		setUniformf("specularIntensity", material.getSpecularIntensity());
+		setUniformf("specularExponent", material.getSpecularExponent());
+		setUniform("eyePos", Transform.getCamera().getPos());
 		
 	}
 
