@@ -53,7 +53,7 @@ uniform float specularExponent;
 
 uniform DLight dLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
-uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
+uniform spotLight spotLights[MAX_SPOT_LIGHTS];
 
 vec4 calcLight(BaseLight base, vec3 direction, vec3 normal)
 {
@@ -107,20 +107,18 @@ vec4 calcPointLight(PointLight pointLight, vec3 normal)
 	return color / attenuation;
 }
 
-vec4 calcSpotLight( SpotLight spotLight, vec3 normal )
+vec4 calcSpotlight(SpotLight spotLight, vec3 normal)
 {
-	vec3 lightDirection = normalize(worldPos0 - spotLight.pointLight.position);
+	vec3 lightDirection = normalize(worldPos0 - spotLight.pointLight.direction);
 	float spotFactor = dot(lightDirection, spotLight.direction);
 	
-	vec4 color = vec4(0,0,0,0);
+	vec4 color(0,0,0,0);
 	
-	if( spotFactor > spotLight.cutoff )
+	if(spotFactor > spotLight.cutoff)
 	{
-		color = calcPointLight(spotLight.pointLight, normal) *
-		(1.0 - (1.0 - spotFactor) / (1.0 - spotLight.cutoff));
+		color = calcPointLight(spotLight.pointLight, normal) * (1.0 - (1.0 - spotFactor)/1.0 - spotLight.cutoff));
 	}
 	
-	return color;
 }
 
 void main()
